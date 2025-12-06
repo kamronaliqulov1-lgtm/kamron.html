@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdSpark - Videodarslar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e6ebff, #f9fbff);
+      color: #1a1a1a;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    /* === HOMEPAGE === */
+    .home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #5568ff, #00c6ff);
+      color: #fff;
+      animation: fadeIn 0.8s ease;
+    }
+    .home h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      margin-bottom: 50px;
+    }
+    .menu {
+      display: flex;
+      gap: 70px;
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .menu a:hover {
+      text-shadow: 0 0 10px white;
+      transform: translateY(-4px);
+    }
+    .register-btn {
+      background: white;
+      color: #4a63ff;
+      border: none;
+      padding: 12px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .register-btn:hover {
+      background: #e0e3ff;
+    }
+
+    /* === VIDEODARSLAR BO'LIMI === */
+    .videos {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      padding: 30px 60px;
+      background: linear-gradient(135deg, #f0f3ff, #ffffff);
+      animation: fadeIn 0.8s ease;
+      overflow-y: auto;
+    }
+    .videos h2 {
+      text-align: center;
+      color: #2c2c54;
+      font-size: 2.4rem;
+      margin-bottom: 25px;
+    }
+    .cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .col {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .col:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .col h3 {
+      font-size: 1.3rem;
+      color: #4a63ff;
+      margin-bottom: 10px;
+    }
+    .search {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.3s;
+    }
+    .search:focus {
+      border-color: #4a63ff;
+      box-shadow: 0 0 6px rgba(74,99,255,0.4);
+    }
+
+    .list {
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item {
+      background: linear-gradient(90deg, #f3f6ff, #edf1ff);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+      transition: 0.25s;
+    }
+    .item:hover {
+      background: linear-gradient(90deg, #e1e6ff, #d7deff);
+      transform: translateX(4px);
+    }
+    .play {
+      background: #4a63ff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .play:hover { background: #2e46ff; }
+
+    .back-btn {
+      margin: 30px auto 10px;
+      background: #4a63ff;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .back-btn:hover { background: #2e46ff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOMEPAGE -->
+  <div class="home" id="home">
+    <h1>EdSpark</h1>
+    <div class="menu">
+      <a>Yutuqlar</a>
+      <a id="videoBtn">Videodarslar</a>
+      <a>Leader</a>
+    </div>
+    <button class="register-btn">Register</button>
+  </div>
+
+  <!-- VIDEODARSLAR -->
+  <div class="videos" id="videos">
+    <h2>📘 Videodarslar</h2>
+    <div class="cols">
+      <div class="col" id="col-cefr">
+        <h3>CEFR</h3>
+        <input type="text" class="search" data-col="cefr" placeholder="CEFR mavzularini qidirish...">
+        <div class="list" id="list-cefr"></div>
+      </div>
+      <div class="col" id="col-ielts">
+        <h3>IELTS</h3>
+        <input type="text" class="search" data-col="ielts" placeholder="IELTS mavzularini qidirish...">
+        <div class="list" id="list-ielts"></div>
+      </div>
+      <div class="col" id="col-sat">
+        <h3>SAT</h3>
+        <input type="text" class="search" data-col="sat" placeholder="SAT mavzularini qidirish...">
+        <div class="list" id="list-sat"></div>
+      </div>
+    </div>
+    <button class="back-btn" id="backBtn">Ortga</button>
+  </div>
+
+  <script>
+    const data = {
+      cefr: Array.from({length:30}, (_,i)=>`CEFR mavzu ${i+1}: Grammar & Speaking`),
+      ielts: Array.from({length:30}, (_,i)=>`IELTS Topic ${i+1}: Academic Reading`),
+      sat: Array.from({length:30}, (_,i)=>`SAT Lesson ${i+1}: Math & Critical Thinking`)
+    };
+
+    function render(col){
+      const list=document.getElementById(`list-${col}`);
+      list.innerHTML="";
+      data[col].forEach(topic=>{
+        const div=document.createElement('div');
+        div.className="item";
+        div.innerHTML=`<span>${topic}</span><button class="play">Play</button>`;
+        list.appendChild(div);
+      });
+    }
+    ["cefr","ielts","sat"].forEach(render);
+
+    document.querySelectorAll('.search').forEach(inp=>{
+      inp.addEventListener('input',e=>{
+        const col=e.target.dataset.col;
+        const q=e.target.value.toLowerCase();
+        const list=document.getElementById(`list-${col}`);
+        Array.from(list.children).forEach(item=>{
+          item.style.display=item.textContent.toLowerCase().includes(q)?"flex":"none";
+        });
+      });
+    });
+
+    const home=document.getElementById('home');
+    const videos=document.getElementById('videos');
+    document.getElementById('videoBtn').onclick=()=>{
+      home.style.display="none";
+      videos.style.display="flex";
+    };
+    document.getElementById('backBtn').onclick=()=>{
+      videos.style.display="none";
+      home.style.display="flex";
+    };
+  </script>
+</body>
+</html>
